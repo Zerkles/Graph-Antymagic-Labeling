@@ -1,27 +1,16 @@
 package com.company;
 
 public class Edge {
+    public Vertex v1;
+    public Vertex v2;
     public String Text;
-    public int Id;
 
-    public void setText(String text) {
-        Text = text;
+    Edge(Vertex v1, Vertex v2){
+        this.v1 = v1;
+        this.v2 = v2;
     }
-
-    public String getText() {
-        return Text;
-    }
-
-    public void setId(int id) {
-        Id = id;
-    }
-
-    public int getId() {
-        return Id;
-    }
-
     @Override
     public String toString(){
-        return "Edge " + this.Id + " connects vertices " + this.Text;
+        return "Edge connects vertices " + this.v1 + " and " + this.v2;
     }
 }
