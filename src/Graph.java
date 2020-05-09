@@ -1,10 +1,8 @@
-package com.company;
-
 import java.util.List;
 
 public class Graph {
-    public List<Vertex> vertices;
-    public List<Edge> edges;
+    private List<Vertex> vertices;
+    private List<Edge> edges;
 
     public void setEdges(List<Edge> edges) {
         this.edges = edges;

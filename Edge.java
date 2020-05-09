@@ -1,16 +1,27 @@
 package com.company;
 
 public class Edge {
-    public Vertex v1;
-    public Vertex v2;
-    public int weight;
+    public String Text;
+    public int Id;
 
-    Edge(Vertex v1, Vertex v2){
-        this.v1 = v1;
-        this.v2 = v2;
+    public void setText(String text) {
+        Text = text;
     }
+
+    public String getText() {
+        return Text;
+    }
+
+    public void setId(int id) {
+        Id = id;
+    }
+
+    public int getId() {
+        return Id;
+    }
+
     @Override
     public String toString(){
-        return "Edge connects vertices " + this.v1 + " and " + this.v2 + ". Its weight is: " + this.weight + ".";
+        return "Edge " + this.Id + " connects vertices " + this.Text;
     }
 }
