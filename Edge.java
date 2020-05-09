@@ -3,7 +3,7 @@ package com.company;
 public class Edge {
     public Vertex v1;
     public Vertex v2;
-    public String Text;
+    public int weight;
 
     Edge(Vertex v1, Vertex v2){
         this.v1 = v1;
@@ -11,6 +11,6 @@ public class Edge {
     }
     @Override
     public String toString(){
-        return "Edge connects vertices " + this.v1 + " and " + this.v2;
+        return "Edge connects vertices " + this.v1 + " and " + this.v2 + ". Its weight is: " + this.weight + ".";
     }
 }
