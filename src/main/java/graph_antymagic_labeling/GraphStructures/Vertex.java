@@ -1,4 +1,4 @@
-package GraphStructures;
+package graph_antymagic_labeling.GraphStructures;
 
 public class Vertex {
 private String text;
