@@ -1,14 +1,16 @@
+package GraphStructures;
+
 public class Vertex {
 private String text;
 private int id;
 
-    Vertex(int id, String name){
+    public Vertex(int id, String name){
         this.id = id;
         this.text = name;
     }
 
     public void setText(String text) {
-        text = text;
+        this.text = text;
     }
 
     public String getText() {
@@ -16,7 +18,7 @@ private int id;
     }
 
     public void setId(int id) {
-        id = id;
+        this.id = id;
     }
 
     public int getId() {

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import GraphStructures.*;
+
 public class GraphUtilities {
 
     public static Graph read_from_file(String filename){
