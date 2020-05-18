@@ -7,7 +7,6 @@ public class Edge {
 
     private Vertex v1;
     private Vertex v2;
-    private int value;
     private IntVar solver_var;
 
     public Edge(Vertex v1, Vertex v2) {
@@ -30,12 +29,11 @@ public class Edge {
         return v2;
     }
 
-    public void setValue(int value) {
-        this.value = value;
-    }
-
     public int getValue() {
-        return this.value;
+        if (this.solver_var != null) {
+            return this.solver_var.getValue();
+        }
+        return 0;
     }
 
     public IntVar getSolverVar() {
@@ -46,12 +44,8 @@ public class Edge {
         this.solver_var = int_var;
     }
 
-    public void updateValue() {
-        this.value = this.solver_var.getValue();
-    }
-
     @Override
     public String toString() {
-        return "Edge between " + this.v1 + " and " + this.v2 + " with value " + this.value;
+        return "Edge between " + this.v1 + " and " + this.v2 + " with value " + this.getValue();
     }
 }

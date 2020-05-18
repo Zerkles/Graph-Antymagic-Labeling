@@ -55,18 +55,6 @@ public class AntymagicLabelingSolver {
         model.allDifferent(vertex_var_array).post(); // Makes vertex sum unique
 
         model.getSolver().solve(); // Repeating this function gives next solutions (if they exist)
-
-        // Print solution
-        for (Vertex v : g.getVertices()) {
-            v.updateValue(); // Updates vertex.value with value from vertex.solver_var
-        }
-
-        System.out.print("\n");
-
-        for (Edge e : g.getEdges()) {
-            e.updateValue();
-        }
-
     }
 
 }

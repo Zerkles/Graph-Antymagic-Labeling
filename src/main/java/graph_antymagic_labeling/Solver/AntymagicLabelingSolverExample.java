@@ -71,14 +71,12 @@ public class AntymagicLabelingSolverExample {
         
         //Print solution
         for (Vertex v : g.getVertices()) {
-            v.updateValue(); // Updates vertex.value with value from vertex.solver_var
             System.out.println("Vertex: " + v.getSolverVar());
         }
         
         System.out.print("\n");
         
         for (Edge e : g.getEdges()) {
-            e.updateValue();
             System.out.println("Edge: " + e.getSolverVar());
         }
 

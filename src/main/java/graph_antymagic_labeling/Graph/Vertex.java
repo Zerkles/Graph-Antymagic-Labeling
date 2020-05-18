@@ -6,7 +6,6 @@ import org.chocosolver.solver.variables.IntVar;
 public class Vertex {
     private int id;
     private String name;
-    private int value;
     private IntVar solver_var;
 
     public Vertex(int id) {
@@ -48,20 +47,15 @@ public class Vertex {
         this.solver_var = int_var;
     }
 
-    public void setValue(int value) {
-        this.value = value;
-    }
-
     public int getValue() {
-        return this.value;
-    }
-
-    public void updateValue() {
-        this.value = this.solver_var.getValue();
+        if (this.solver_var != null) {
+            return this.solver_var.getValue();
+        }
+        return 0;
     }
 
     @Override
     public String toString() {
-        return "Vertex with an ID: " + this.id + " named " + this.name + " and value " + this.value;
+        return "Vertex with an ID: " + this.id + " named " + this.name + " and value " + this.getValue();
     }
 }
