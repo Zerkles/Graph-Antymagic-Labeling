@@ -1,6 +1,7 @@
 package graph_antymagic_labeling;
 
-import graph_antymagic_labeling.GraphStructures.Graph;
+import graph_antymagic_labeling.Graph.Graph;
+import graph_antymagic_labeling.Graph.GraphUtilities;
 import graph_antymagic_labeling.Solver.AntymagicLabelingSolver;
 
 public class Main {

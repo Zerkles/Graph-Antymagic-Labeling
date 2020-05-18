@@ -1,4 +1,4 @@
-package graph_antymagic_labeling;
+package graph_antymagic_labeling.Graph;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import graph_antymagic_labeling.GraphStructures.*;
 
 public class GraphUtilities {
 

@@ -6,7 +6,7 @@ import java.util.List;
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.variables.IntVar;
 
-import graph_antymagic_labeling.GraphStructures.*;
+import graph_antymagic_labeling.Graph.*;
 
 public class AntymagicLabelingSolverExample {
 

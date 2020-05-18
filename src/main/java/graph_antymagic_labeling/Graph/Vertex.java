@@ -1,4 +1,4 @@
-package graph_antymagic_labeling.GraphStructures;
+package graph_antymagic_labeling.Graph;
 
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.variables.IntVar;

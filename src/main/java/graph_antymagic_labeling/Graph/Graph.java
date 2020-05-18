@@ -1,4 +1,4 @@
-package graph_antymagic_labeling.GraphStructures;
+package graph_antymagic_labeling.Graph;
 
 import java.util.List;
 
