@@ -17,6 +17,8 @@ public class GraphUtilities {
         List<Vertex> list_of_verticies = new ArrayList<>();
         List<Edge> list_of_edges = new ArrayList<>();
 
+        System.out.println("File content:");
+
         try{
         File myObj = new File(filename);
         Scanner myReader = new Scanner(myObj);
@@ -57,12 +59,13 @@ public class GraphUtilities {
         g.setEdges(list_of_edges);
         g.setVertices(list_of_verticies);
 
-        System.out.println(list_of_verticies);
-        System.out.println(list_of_edges);
         }catch(Exception e){
             e.printStackTrace();
         }
         
+        System.out.println("\nGraph read from file:");
+        g.printGraph();
+
         return g;
     }
 
@@ -71,7 +74,7 @@ public class GraphUtilities {
             FileWriter myWriter = new FileWriter(filename);
             
             for(Vertex v : g.getVertices()){
-                myWriter.write(v.getId() + " "+ v.getText() + "\n");
+                myWriter.write(v.getId() + " "+ v.getName() + "\n");
             }
             
             myWriter.write("#\n");
