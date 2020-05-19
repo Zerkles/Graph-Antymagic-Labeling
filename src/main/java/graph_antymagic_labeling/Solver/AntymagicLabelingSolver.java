@@ -24,8 +24,11 @@ public class AntymagicLabelingSolver {
         }
 
         for (Edge e : g.getEdges()) {
-            if(!g.getVertices().contains(e.getV1()) || !g.getEdges().contains(e.getV2()) ){
+            if(!(g.getVertices().contains(e.getV1()) || g.getEdges().contains(e.getV2())) ){
                 throw new IllegalArgumentException("One of vertices does not belong to the graph!");
+            }else if(e.getV1() == e.getV2()){
+                throw new IllegalArgumentException("Both vertices: \n" + e.getV1().toString() + " and \n" +
+                        e.getV2().toString() + " are the same!");
             }
             e.setSolverVar(model.intVar(e.getV1().getId() + "_" + e.getV2().getId(), edgeMinValue, edgeMaxValue));
         }
