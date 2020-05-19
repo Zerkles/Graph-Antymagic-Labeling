@@ -24,6 +24,9 @@ public class AntymagicLabelingSolver {
         }
 
         for (Edge e : g.getEdges()) {
+            if(!g.getVertices().contains(e.getV1()) || !g.getEdges().contains(e.getV2()) ){
+                throw new IllegalArgumentException("One of vertices does not belong to the graph!");
+            }
             e.setSolverVar(model.intVar(e.getV1().getId() + "_" + e.getV2().getId(), edgeMinValue, edgeMaxValue));
         }
 
