@@ -12,26 +12,25 @@ import java.util.List;
 import java.util.Scanner;
 
 public class GraphUtilities {
-    public static Graph read_from_file(String filename) {
+    public static Graph read_from_file(String file_path) {
 
         Graph g = new Graph();
         List<Vertex> list_of_verticies = new ArrayList<>();
         List<Edge> list_of_edges = new ArrayList<>();
 
         try {
-            File myObj = new File(filename);
+            File myObj = new File(file_path);
             Scanner myReader = new Scanner(myObj);
 
             while (myReader.hasNextLine()) {
-                String line = myReader.nextLine();
-                System.out.println(line);
+                String vertex_line = myReader.nextLine();
 
-                if (line.equals("#")) {
+                if (vertex_line.equals("#")) {
                     while (myReader.hasNextLine()) {
-                        String line2 = myReader.nextLine();
-                        System.out.println(line2);
-                        int id1 = Integer.parseInt(line2.substring(0, line2.indexOf(" ")));
-                        int id2 = Integer.parseInt(line2.substring(line2.indexOf(" ") + 1, line2.length()));
+                        String edge_line = myReader.nextLine();
+
+                        int id1 = Integer.parseInt(edge_line.substring(0, edge_line.indexOf(" ")));
+                        int id2 = Integer.parseInt(edge_line.substring(edge_line.indexOf(" ") + 1, edge_line.length()));
                         Vertex v1 = null, v2 = null;
 
                         for (Vertex v : list_of_verticies) {
@@ -48,8 +47,8 @@ public class GraphUtilities {
                     break;
                 }
 
-                int id = Integer.parseInt(line.substring(0, line.indexOf(" ")));
-                String name = line.substring(line.indexOf(" ") + 1, line.length());
+                int id = Integer.parseInt(vertex_line.substring(0, vertex_line.indexOf(" ")));
+                String name = vertex_line.substring(vertex_line.indexOf(" ") + 1, vertex_line.length());
 
                 list_of_verticies.add(new Vertex(id, name));
             }
@@ -57,9 +56,7 @@ public class GraphUtilities {
 
             g.setEdges(list_of_edges);
             g.setVertices(list_of_verticies);
-
-            System.out.println(list_of_verticies);
-            System.out.println(list_of_edges);
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -67,9 +64,9 @@ public class GraphUtilities {
         return g;
     }
 
-    public static void write_to_file(Graph g, String filename) {
+    public static void write_to_file(Graph g, String file_path) {
         try {
-            FileWriter myWriter = new FileWriter(filename);
+            FileWriter myWriter = new FileWriter(file_path);
 
             for (Vertex v : g.getVertices()) {
                 myWriter.write(v.getId() + " " + v.getName() + "\n");
