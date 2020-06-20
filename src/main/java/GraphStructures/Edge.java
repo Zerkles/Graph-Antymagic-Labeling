@@ -38,7 +38,7 @@ public class Edge {
         if (this.solver_var != null) {
             return this.solver_var.getValue();
         }
-        return 0;
+        return -1;
     }
 
     public IntVar getSolverVar() {
@@ -51,6 +51,6 @@ public class Edge {
 
     @Override
     public String toString() {
-        return "Edge between " + this.v1 + " and " + this.v2 + " with value " + this.getValue();
+        return "Edge between [" + this.v1 + "] and [" + this.v2 + "] with value " + this.getValue();
     }
 }

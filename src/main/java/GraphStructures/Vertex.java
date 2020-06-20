@@ -56,11 +56,11 @@ public class Vertex {
         if (this.solver_var != null) {
             return this.solver_var.getValue();
         }
-        return 0;
+        return -1;
     }
 
     @Override
     public String toString() {
-        return "Vertex with an ID: " + this.id + " named " + this.name + " and value " + this.getValue();
+        return "Vertex with: id " + this.id + ", named " + this.name + ", value " + this.getValue();
     }
 }

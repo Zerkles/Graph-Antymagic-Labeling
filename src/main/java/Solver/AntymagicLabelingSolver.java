@@ -7,15 +7,14 @@ import GraphStructures.*;
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.variables.IntVar;
 
-
 public class AntymagicLabelingSolver {
 
     public static Graph solve_graph(Graph g, boolean hard_solving) {
-        return solve_graph(g, hard_solving, 0, 1000, 0, 100);
+        return solve_graph(g, hard_solving, 0, 1000, 0, 1000);
     }
 
-    public static Graph solve_graph(Graph g, boolean hard_solving, int vertexMinValue, int vertexMaxValue, int edgeMinValue,
-                                    int edgeMaxValue) {
+    public static Graph solve_graph(Graph g, boolean hard_solving, int vertexMinValue, int vertexMaxValue,
+            int edgeMinValue, int edgeMaxValue) {
 
         Model model = new Model("Graph Antymagic Labeling with Choco Solver");
 
@@ -24,12 +23,14 @@ public class AntymagicLabelingSolver {
         }
 
         for (Edge e : g.getEdges()) {
-           if (!(g.getVertices().contains(e.getV1()) || g.getVertices().contains(e.getV2()))) {
-               throw new IllegalArgumentException("One of vertices does not belong to the graph!");
-           } else if (e.getV1() == e.getV2()) {
-               throw new IllegalArgumentException("Both vertices: \n" + e.getV1().toString() + " and \n" +
-                       e.getV2().toString() + " are the same!");
-           }
+            if (!(g.getVertices().contains(e.getV1()) || g.getVertices().contains(e.getV2()))) {
+                throw new IllegalArgumentException("One of vertices does not belong to the graph!");
+            }
+            // else if (e.getV1() == e.getV2()) {
+            // throw new IllegalArgumentException("Both vertices: \n" + e.getV1().toString()
+            // + " and \n" +
+            // e.getV2().toString() + " are the same!");
+            // }
             e.setSolverVar(model.intVar(e.getV1().getId() + "_" + e.getV2().getId(), edgeMinValue, edgeMaxValue));
         }
 
@@ -45,14 +46,19 @@ public class AntymagicLabelingSolver {
             IntVar[] edges_per_vertex_var_array = new IntVar[edges_per_vertex_var_arraylist.size()];
             edges_per_vertex_var_array = edges_per_vertex_var_arraylist.toArray(edges_per_vertex_var_array);
 
-            if (hard_solving) {
-                model.allDifferent(edges_per_vertex_var_array).post();
-            }
-
             model.sum(edges_per_vertex_var_array, "=", v.getSolverVar()).post();
         }
 
-        // Get IntVar[] of vertices
+        if (hard_solving) {
+            // Get IntVar[] of edges
+            IntVar[] edges_var_array = new IntVar[g.getEdges().size()];
+            for (int i = 0; i < edges_var_array.length; i++) {
+                edges_var_array[i] = g.getEdges().get(i).getSolverVar();
+            }
+            model.allDifferent(edges_var_array).post();
+        }
+
+        // Get IntVar[] of all vertices
         IntVar[] vertex_var_array = new IntVar[g.getVertices().size()];
         for (int i = 0; i < vertex_var_array.length; i++) {
             vertex_var_array[i] = g.getVertices().get(i).getSolverVar();
