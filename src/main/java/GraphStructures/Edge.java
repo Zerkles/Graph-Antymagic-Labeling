@@ -35,10 +35,10 @@ public class Edge {
     }
 
     public int getValue() {
-        if (this.solver_var != null) {
-            return this.solver_var.getValue();
+        if (this.solver_var == null) {
+            throw new NullPointerException("Edge is not a part of any resolved graph!");
         }
-        return -1;
+        return this.solver_var.getValue();
     }
 
     public IntVar getSolverVar() {
@@ -51,6 +51,9 @@ public class Edge {
 
     @Override
     public String toString() {
+        if (this.solver_var == null) {
+            return "Edge between [" + this.v1 + "] and [" + this.v2 + "] with value " + "Null";
+        }
         return "Edge between [" + this.v1 + "] and [" + this.v2 + "] with value " + this.getValue();
     }
 }

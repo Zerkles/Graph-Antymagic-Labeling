@@ -53,14 +53,17 @@ public class Vertex {
     }
 
     public int getValue() {
-        if (this.solver_var != null) {
-            return this.solver_var.getValue();
+        if (this.solver_var == null) {
+            throw new NullPointerException("Vertex is not a part of any resolved graph!");
         }
-        return -1;
+        return this.solver_var.getValue();
     }
 
     @Override
     public String toString() {
+        if (this.solver_var == null) {
+            return "Vertex with: id " + this.id + ", named " + this.name + ", value " + "Null";
+        }
         return "Vertex with: id " + this.id + ", named " + this.name + ", value " + this.getValue();
     }
 }
