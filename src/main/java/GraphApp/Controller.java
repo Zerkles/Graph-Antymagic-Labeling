@@ -80,7 +80,6 @@ public class Controller {
         Graph graph = GraphUtilities.read_from_file(file.getAbsolutePath());
         Stage graphStage = new Stage();
         BorderPane root = new BorderPane();
-        graph = AntymagicLabelingSolver.solve_graph(graph, true);
         graphDraw = mapGraphToGraphDraw(graph);
         root.setCenter(graphDraw.getScrollPane());
         Scene scene = new Scene(root, 1024, 768);
@@ -106,6 +105,7 @@ public class Controller {
     private Graph mapGraphDrawToGraph(GraphDraw toMapGraph) {
         Graph graph = new Graph();
         int i = 0;
+        List<Edge> edgesListToAdd = new ArrayList<>();
         List<Vertex> vertexListToAdd = new ArrayList<>();
         for (Cell c : toMapGraph.getModel().getAllCells()) {
             vertexListToAdd.add(new Vertex(i, c.getCellId()));
@@ -113,19 +113,16 @@ public class Controller {
         }
         graph.setVertices(vertexListToAdd);
 
-        List<Edge> edgesListToAdd = new ArrayList<>();
         for (GraphApp.model.Edge e : toMapGraph.getModel().getAllEdges()) {
-            List<Vertex> vertexList = graph.getVertices();
+            Vertex sourceVertex = null;
+            Vertex targetVertex = null;
 
-            Vertex sourceVertex = new Vertex(0, "");
-            Vertex targetVertex = new Vertex(0, "");
-
-            for (Vertex v : vertexList) {
+            for (Vertex v : graph.getVertices()) {
                 if (e.getSource().getCellId().equals(v.getName())) {
-                    sourceVertex = new Vertex(v.getId(), v.getName());
+                    sourceVertex = v;
                 }
                 if (e.getTarget().getCellId().equals(v.getName())) {
-                    targetVertex = new Vertex(v.getId(), v.getName());
+                    targetVertex = v;
                 }
             }
             edgesListToAdd.add(new Edge(sourceVertex, targetVertex));
