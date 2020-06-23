@@ -30,6 +30,7 @@ public class AntymagicLabelingSolver {
                         + " and \n" +
                         e.getV2().toString() + " are the same!");
             }
+
             e.setSolverVar(model.intVar(e.getV1().getId() + "_" + e.getV2().getId(), edgeMinValue, edgeMaxValue));
         }
 

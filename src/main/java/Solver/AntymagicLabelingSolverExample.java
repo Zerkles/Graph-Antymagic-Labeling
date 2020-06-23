@@ -7,16 +7,13 @@ import GraphStructures.*;
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.variables.IntVar;
 
-
 public class AntymagicLabelingSolverExample {
 
     public static void main(String[] args) {
         // The model is the main component of Choco Solver
         Model model = new Model("Graph Antymagic Labeling with Choco Solver");
 
-
-
-        //Creating new graph
+        // Creating new graph
         Graph g = new Graph();
 
         List<Vertex> vertices_list = new ArrayList<>();
@@ -35,10 +32,9 @@ public class AntymagicLabelingSolverExample {
         edges_list.add(new Edge(vertices_list.get(4), vertices_list.get(3), model));
 
         g.setEdges(edges_list);
-
-
-
-        // Get all edges which are connected with selected vertex and parse them int IntVar[]
+        
+        //Solving
+        // Get all edges which are connected with selected vertex and parse them into IntVar[]
         for (Vertex v : g.getVertices()) {
             List<IntVar> edges_per_vertex_var_arraylist = new ArrayList<IntVar>();
 
@@ -51,13 +47,20 @@ public class AntymagicLabelingSolverExample {
             IntVar[] edges_per_vertex_var_array = new IntVar[edges_per_vertex_var_arraylist.size()];
             edges_per_vertex_var_array = edges_per_vertex_var_arraylist.toArray(edges_per_vertex_var_array);
 
-            model.allDifferent(edges_per_vertex_var_array).post();  // Comment this line to make labeling soft (edge values can repeat)
-            model.sum(edges_per_vertex_var_array, "=", v.getSolverVar()).post(); // Makes sum constraint, exmp. e1+e2+e3=v1
+            model.sum(edges_per_vertex_var_array, "=", v.getSolverVar()).post(); // Makes sum constraint, exmp: e1+e2+e3=v1
         }
 
+        // false for soft labeling (edge values can repeat), true for hard labeling
+        if (true) {
+            // Get IntVar[] of edges
+            IntVar[] edges_var_array = new IntVar[g.getEdges().size()];
+            for (int i = 0; i < edges_var_array.length; i++) {
+                edges_var_array[i] = g.getEdges().get(i).getSolverVar();
+            }
+            model.allDifferent(edges_var_array).post();
+        }
 
-
-        //Get IntVar[] of vertices
+        // Get IntVar[] of vertices
         IntVar[] vertex_var_array = new IntVar[g.getVertices().size()];
         for (int i = 0; i < vertex_var_array.length; i++) {
             vertex_var_array[i] = g.getVertices().get(i).getSolverVar();
@@ -65,11 +68,9 @@ public class AntymagicLabelingSolverExample {
 
         model.allDifferent(vertex_var_array).post(); // Makes vertex sum unique
 
-        model.getSolver().solve(); // Repeating this function gives next solutions (if they exist)
+        model.getSolver().solve(); // Repeating this operation gives next solutions (if they exist)
 
-
-
-        //Print solution
+        // Print solution
         for (Vertex v : g.getVertices()) {
             System.out.println("Vertex: " + v.getSolverVar());
         }
