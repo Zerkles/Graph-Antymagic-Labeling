@@ -43,6 +43,7 @@ public class Controller {
 
     }
 
+    @FXML
     public void showGraphCanvas(ActionEvent actionEvent) throws IOException {
         cellsId = 0;
         Stage graphStage = new Stage();
@@ -54,14 +55,39 @@ public class Controller {
         graphStage.show();
     }
 
+    @FXML
     public void addEdge() {
         Model model = graphDraw.getModel();
         graphDraw.beginUpdate();
+        Cell c1 = new Cell(edgeStart.getText());
+        Cell c2 = new Cell(edgeEnd.getText());
+        if (graphDraw.getModel().getAllEdges().isEmpty()) {
+            model.addEdge(edgeStart.getText(), edgeEnd.getText());
+        }
+        if (c1.getCellId().equals(c2.getCellId())) {
+            return;
+        }
+        for (GraphApp.model.Edge e : graphDraw.getModel().getAllEdges()) {
+            if (e.getSource().getCellId().equals(c1.getCellId())) {
+                if (e.getTarget().getCellId().equals(c2.getCellId())) {
+                    return;
+                }
+            }
+            if (e.getTarget().getCellId().equals(c1.getCellId())) {
+                if (e.getSource().getCellId().equals(c2.getCellId())) {
+                    return;
+                }
+            }
+        }
         model.addEdge(edgeStart.getText(), edgeEnd.getText());
         graphDraw.endUpdate();
     }
 
+    @FXML
     public void addCell() {
+        if (graphDraw.getModel().getAllCells().size() > 0) {
+            cellsId = graphDraw.getModel().getAllCells().size();
+        }
         Model model = graphDraw.getModel();
         graphDraw.beginUpdate();
         model.addCell("V" + cellsId, CellType.RECTANGLE);
@@ -128,8 +154,6 @@ public class Controller {
             edgesListToAdd.add(new Edge(sourceVertex, targetVertex));
         }
         graph.setEdges(edgesListToAdd);
-        System.out.println(graph.getEdges().toString());
-        System.out.println(graph.getVertices().toString());
         return graph;
     }
 

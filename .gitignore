@@ -28,4 +28,3 @@ output_graph.txt
 .classpath
 .project
 /target/
-/graph-app/manifest.mf
