@@ -63,6 +63,8 @@ public class Controller {
         Cell c2 = new Cell(edgeEnd.getText());
         if (graphDraw.getModel().getAllEdges().isEmpty()) {
             model.addEdge(edgeStart.getText(), edgeEnd.getText());
+            graphDraw.endUpdate();
+            return;
         }
         if (c1.getCellId().equals(c2.getCellId())) {
             return;
